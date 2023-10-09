@@ -102,6 +102,28 @@ public class MisionServiceImpl implements MisionService {
 	}
 
 	/**
+	 * Obtiene la recompensa asociada a una misión específica identificada por su
+	 * ID.
+	 *
+	 * @param idMision El ID de la misión de la cual se desea obtener la recompensa.
+	 * @return La cantidad de recompensa asociada a la misión especificada.
+	 * @throws EntityNotFoundException Si no se encuentra una misión con el ID
+	 *                                 especificado.
+	 */
+	@Override
+	public int getRecompensa(int idMision) throws EntityNotFoundException {
+		Optional<Mision> optionalMision = misionRepository.findById(idMision);
+
+		if (optionalMision.isEmpty()) {
+			throw new EntityNotFoundException();
+		}
+
+		Mision mision = optionalMision.get();
+
+		return mision.getRecompensa();
+	}
+
+	/**
 	 * Crea una nueva misión en el sistema.
 	 *
 	 * @param mision La misión que se va a crear.
@@ -160,20 +182,21 @@ public class MisionServiceImpl implements MisionService {
 	}
 
 	/**
-	 * Reinicia el estado de todas las misiones en el sistema, estableciendo su estado como activas y no superadas.
-	 * Este método se utiliza para reiniciar todas las misiones en el sistema.
+	 * Reinicia el estado de todas las misiones en el sistema, estableciendo su
+	 * estado como activas y no superadas. Este método se utiliza para reiniciar
+	 * todas las misiones en el sistema.
 	 */
 	@Override
 	public void reiniciarMisiones() {
 		List<Mision> listaMisiones = misionRepository.findAll();
-		
+
 		for (Mision m : listaMisiones) {
 			m.setActiva(true);
 			m.setSuperada(false);
 		}
-		
+
+		misionRepository.saveAll(listaMisiones);
+
 	}
-	
-	
 
 }

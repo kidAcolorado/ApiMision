@@ -23,7 +23,7 @@ public interface MisionService {
 	 *
 	 * @return Una lista de todas las misiones.
 	 */
-	public List<Mision> showAll();
+	List<Mision> showAll();
 
 	/**
 	 * Recupera misiones cuyos nombres coinciden con un prefijo dado.
@@ -31,7 +31,7 @@ public interface MisionService {
 	 * @param prefijo El prefijo del nombre de la misión a buscar.
 	 * @return Una lista de misiones cuyos nombres coinciden con el prefijo.
 	 */
-	public List<Mision> showByNombreLike(String prefijo);
+	List<Mision> showByNombreLike(String prefijo);
 
 	/**
 	 * Recupera misiones cuyo nivel de dificultad sea igual o menor al nivel
@@ -41,7 +41,7 @@ public interface MisionService {
 	 * @return Una lista de misiones con niveles de dificultad iguales o menores al
 	 *         nivel especificado.
 	 */
-	public List<Mision> showByNivel(int nivel);
+	List<Mision> showByNivel(int nivel);
 
 	/**
 	 * Recupera una misión por su identificador único.
@@ -49,7 +49,15 @@ public interface MisionService {
 	 * @param idMision El identificador único de la misión a recuperar.
 	 * @return La misión correspondiente al identificador dado.
 	 */
-	public Mision showById(int idMision);
+	Mision showById(int idMision);
+	
+	/**
+	 * Obtiene la recompensa asociada a una misión específica identificada por su ID.
+	 *
+	 * @param idMision El ID de la misión de la cual se desea obtener la recompensa.
+	 * @return La cantidad de recompensa asociada a la misión especificada, o -1 si la misión no existe.
+	 */
+	int getRecompensa(int idMision);
 
 	/**
 	 * Crea una nueva misión en el sistema.
@@ -57,7 +65,7 @@ public interface MisionService {
 	 * @param mision La misión que se va a crear.
 	 * @return La misión creada con su identificador único.
 	 */
-	public Mision createMision(Mision mision);
+	Mision createMision(Mision mision);
 
 	/**
 	 * Establece el estado de una misión como "Superada" mediante su código único.
@@ -65,7 +73,7 @@ public interface MisionService {
 	 * @param codigo El código único de la misión a marcar como "Superada".
 	 * @return La misión con el estado actualizado.
 	 */
-	public Mision setEstadoSuperada(int codigo);
+	Mision setEstadoSuperada(int codigo);
 
 	/**
 	 * Establece el estado de una misión como "Inactiva" mediante su código único.
@@ -73,12 +81,12 @@ public interface MisionService {
 	 * @param codigo El código único de la misión a marcar como "Inactiva".
 	 * @return La misión con el estado actualizado.
 	 */
-	public Mision setEstadoInactiva(int codigo);
+	Mision setEstadoInactiva(int codigo);
 
 	/**
 	 * Reinicia el estado de todas las misiones, estableciendo su estado como no
 	 * superadas y activas. Este método se utiliza para reiniciar todas las misiones en el
 	 * sistema.
 	 */
-	public void reiniciarMisiones();
+	void reiniciarMisiones();
 }
